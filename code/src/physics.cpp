@@ -5,6 +5,7 @@
 #include "RandomStaticParticles.h"
 #include "TeleportingParticles.h"
 #include "AA2.h"
+#include "AA3.h"
 
 
 #pragma region simulationSelection
@@ -13,6 +14,7 @@ enum class EnabledSimulation
 	RANDOM_STATIC_PARTICLES,
 	TELEPORTING_PARTICLES,
 	AA2,
+	AA3,
 };
 
 Simulator* currentSimulator;
@@ -44,6 +46,11 @@ void setSimulation(EnabledSimulation simulation)
 			currentSimulator = new AA2();
 			break;
 			;;
+		case EnabledSimulation::AA3:
+			printf("Start the AA3");
+			currentSimulator = new AA3();
+			break;
+			;;
 	}
 }
 #pragma endregion
@@ -61,6 +68,8 @@ void GUI()
 			if (ImGui::MenuItem("RandomStaticParticles")) { setSimulation(EnabledSimulation::RANDOM_STATIC_PARTICLES); };
 			if (ImGui::MenuItem("TeleportingParticles")) { setSimulation(EnabledSimulation::TELEPORTING_PARTICLES); };
 			if (ImGui::MenuItem("AA2")) { setSimulation(EnabledSimulation::AA2); };
+			if (ImGui::MenuItem("AA3")) { setSimulation(EnabledSimulation::AA3); };
+
 
 			ImGui::EndMenu();
 		}
