@@ -20,8 +20,6 @@ public:
 	void RenderGui();
 
 private:
-
-
 };
 
 

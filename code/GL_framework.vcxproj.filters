@@ -57,9 +57,6 @@
     <ClCompile Include="src\Geometry.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\AA2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\GUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,9 +84,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Geometry.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\AA2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\GUI.h">

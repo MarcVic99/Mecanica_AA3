@@ -4,7 +4,6 @@
 
 #include "RandomStaticParticles.h"
 #include "TeleportingParticles.h"
-#include "AA2.h"
 #include "AA3.h"
 
 
@@ -13,7 +12,6 @@ enum class EnabledSimulation
 {
 	RANDOM_STATIC_PARTICLES,
 	TELEPORTING_PARTICLES,
-	AA2,
 	AA3,
 };
 
@@ -41,11 +39,7 @@ void setSimulation(EnabledSimulation simulation)
 			currentSimulator = new TeleportingParticles();
 			break;
 		;;
-		case EnabledSimulation::AA2:
-			printf("Start the AA2");
-			currentSimulator = new AA2();
-			break;
-			;;
+
 		case EnabledSimulation::AA3:
 			printf("Start the AA3");
 			currentSimulator = new AA3();
@@ -67,7 +61,6 @@ void GUI()
 		{
 			if (ImGui::MenuItem("RandomStaticParticles")) { setSimulation(EnabledSimulation::RANDOM_STATIC_PARTICLES); };
 			if (ImGui::MenuItem("TeleportingParticles")) { setSimulation(EnabledSimulation::TELEPORTING_PARTICLES); };
-			if (ImGui::MenuItem("AA2")) { setSimulation(EnabledSimulation::AA2); };
 			if (ImGui::MenuItem("AA3")) { setSimulation(EnabledSimulation::AA3); };
 
 

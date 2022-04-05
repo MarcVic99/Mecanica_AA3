@@ -3,6 +3,7 @@
 #include "Simulator.h"
 
 extern bool renderCloth;
+
 namespace ClothMesh
 {
 	extern void updateClothMesh(float* aray_data);
@@ -13,30 +14,19 @@ namespace ClothMesh
 class MeshTest : public Simulator
 {
 public:
-	MeshTest() { renderCloth = true; }
+	MeshTest(int width, int height);
 
-	int GetIndex(int col, int row)
-	{
-		return col + row * ClothMesh::numCols;
-	}
+	int GetIndex(int col, int row);
 	
-	void RenderUpdate()
-	{
-		glm::vec3* positions = new glm::vec3[ClothMesh::numCols * ClothMesh::numRows];
-		for (int row = 0; row < ClothMesh::numRows; row++)
-		{
-			for (int col = 0; col < ClothMesh::numCols; col++)
-			{
-				int indx = GetIndex(col, row);
+	void RenderUpdate();
 
-				positions[indx] = glm::vec3(row, col, 0.f);
-			}
-		}
-		ClothMesh::updateClothMesh(&(positions[0].x));
-	}
-
-	~MeshTest() { renderCloth = false; }
+	~MeshTest();
 
 	void Update(float dt) {}
+
+private:
+
+	int meshWidth;
+	int meshHeight;
 };
 
