@@ -150,6 +150,7 @@ xcopy $(ProjectDir)libs\SDL2.dll $(OutDir) /y /d</Command>
     <ClCompile Include="src\render.cpp" />
     <ClCompile Include="src\render_prims.cpp" />
     <ClCompile Include="src\TeleportingParticles.cpp" />
+    <ClCompile Include="src\VerlettIntegrator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AA3.h" />
@@ -161,6 +162,7 @@ xcopy $(ProjectDir)libs\SDL2.dll $(OutDir) /y /d</Command>
     <ClInclude Include="include\RandomStaticParticles.h" />
     <ClInclude Include="include\Simulator.h" />
     <ClInclude Include="include\TeleportingParticles.h" />
+    <ClInclude Include="include\VerlettIntegrator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

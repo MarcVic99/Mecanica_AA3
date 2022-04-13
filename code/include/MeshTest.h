@@ -14,7 +14,7 @@ namespace ClothMesh
 class MeshTest
 {
 public:
-	MeshTest();// (int width, int height);
+	MeshTest();
 
 	int GetIndex(int col, int row);
 	
@@ -24,9 +24,27 @@ public:
 
 	void Update(float dt);
 
+	int GetMaxMeshWidth(MeshTest mesh);
+
+	int GetMaxMeshHeight(MeshTest mesh);
+
+	void SetInitialMeshParticlePosition();
+
+	int MeshTest::GetMaxMeshParticles();
+
 private:
 
-	int meshWidth = 14;
-	int meshHeight = 18;
+	glm::vec3* currentPositions;
+	glm::vec3* currentVelocities;
+
+	glm::vec3* previousPositions;
+	glm::vec3* previousVelocities;
+
+	glm::vec3* startingPositions;
+	glm::vec3* startingVelocities;
+
+	int particleMass = 1;
+
+
 };
 
