@@ -11,22 +11,22 @@ namespace ClothMesh
 	extern const int numRows;
 }
 
-class MeshTest : public Simulator
+class MeshTest
 {
 public:
-	MeshTest(int width, int height);
+	MeshTest();// (int width, int height);
 
 	int GetIndex(int col, int row);
 	
-	void RenderUpdate();
+	void RenderUpdateMesh();
 
 	~MeshTest();
 
-	void Update(float dt) {}
+	void Update(float dt);
 
 private:
 
-	int meshWidth;
-	int meshHeight;
+	int meshWidth = 14;
+	int meshHeight = 18;
 };
 

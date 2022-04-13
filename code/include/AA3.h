@@ -8,6 +8,7 @@ namespace Sphere {
 }
 
 extern bool renderSphere;
+extern bool renderCloth;
 
 class AA3 : public Simulator
 {

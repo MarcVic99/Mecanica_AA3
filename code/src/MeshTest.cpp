@@ -1,10 +1,10 @@
 #include "MeshTest.h"
 
-MeshTest::MeshTest(int width, int height)
+MeshTest::MeshTest()//(int width, int height)
 {
 	renderCloth = true;
-	meshWidth = width;
-	meshHeight = height;
+	/*meshWidth = width;
+	meshHeight = height;*/
 }
 
 int MeshTest::GetIndex(int col, int row)
@@ -12,7 +12,12 @@ int MeshTest::GetIndex(int col, int row)
 	return col + row * ClothMesh::numCols;
 }
 
-void MeshTest::RenderUpdate()
+void MeshTest::Update(float dt)
+{
+
+}
+
+void MeshTest::RenderUpdateMesh()
 {
 	glm::vec3* positions = new glm::vec3[ClothMesh::numCols * ClothMesh::numRows];
 	for (int row = 0; row < ClothMesh::numRows; row++)

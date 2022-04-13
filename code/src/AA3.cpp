@@ -4,7 +4,7 @@
 #include "Geometry.h"
 #include <imgui/imgui.h>
 #include <time.h>
-
+#include "MeshTest.h"
 
 namespace Planes
 {
@@ -26,8 +26,7 @@ namespace Sphere
 	bool resetedRadiusAA3 = true;
 }
 
-extern glm::vec3 GetParticleInitialPositionAA2(int id, int numParticles);
-
+MeshTest* meshTest;
 
 #pragma region class
 AA3::AA3()
@@ -36,22 +35,24 @@ AA3::AA3()
 	// Enable the rendering of particles in the framework 
 	extern bool renderSphere; renderSphere = true;
 	extern bool renderParticles; renderParticles = false;
+	extern bool renderCloth; renderCloth = true;
 }
 
 AA3::~AA3()
 {
 	renderSphere = false;
+	renderCloth = false;
 }
 
 void AA3::Update(float dt)
 {
-
-
+	//meshTest->Update(dt);
 	Sphere::customSphereAA3.SphereMovement(renderSphere);
 }
 
 void AA3::RenderUpdate()
 {
+	meshTest->RenderUpdateMesh();
 	Sphere::updateSphere(Sphere::customSphereAA3.sphereCenter, Sphere::customSphereAA3.sphereRadius);
 }
 
