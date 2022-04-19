@@ -49,6 +49,8 @@ void MeshTest::Update(float dt)
 
 			previousPositions[i] = currentPositions[i];
 			currentPositions[i] = verletIntegrator.GetNewPosition(previousPositions[i], currentVelocities[i], dt);
+
+			forceAcumulator[i] = { 0.f, 0.f, 0.f };
 		}
 	}
 }
