@@ -8,7 +8,8 @@ class Spring
 
 	glm::vec3 GetStrenghtBetweenTwoPositions(glm::vec3 pos1, glm::vec3 pos2);
 
-	float constant;
 	glm::vec3 equilibriumDistance;
+	float constant;
+	float damping;
 };
 
