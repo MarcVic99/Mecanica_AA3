@@ -2,35 +2,7 @@
 
 MeshTest::MeshTest()
 {
-	numParticles = GetMaxMeshParticles();
 	renderCloth = true;
-	
-	currentPositions = new glm::vec3[numParticles];
-	currentVelocities = new glm::vec3[numParticles];
-
-	startingPositions = new glm::vec3[numParticles];
-	startingVelocities = new glm::vec3[numParticles];
-
-	previousPositions = new glm::vec3[numParticles];
-	previousVelocities = new glm::vec3[numParticles];
-
-	startingPositions = new glm::vec3[numParticles];
-	startingVelocities = new glm::vec3[numParticles];
-
-	isStatic = new bool[numParticles];
-	forceAcumulator = new glm::vec3[numParticles];
-
-	for (int i = 0; i < numParticles; i++)
-	{
-		if (i == 0 || i == ClothMesh::numCols)
-		{
-			isStatic[i] = true;
-		}
-		else
-		{
-			isStatic[i] = false;
-		}
-	}
 }
 
 int MeshTest::GetIndex(int col, int row)
@@ -43,16 +15,22 @@ void MeshTest::Update(float dt)
 	// Do verlett thingy
 	for (int i = 0; i < numParticles; i++)
 	{
-		if (!isStatic[i])
+		if (!meshParticle[i].isStatic)
 		{
-			currentVelocities[i] = verletIntegrator.GetAcceleration(forceAcumulator[i], particleMass);
+			meshParticle[i].currentVelocities[i] = verletIntegrator.GetAcceleration(meshParticle[i].forceAcumulator[i], meshParticle[i].particleMass);
 
-			previousPositions[i] = currentPositions[i];
-			currentPositions[i] = verletIntegrator.GetNewPosition(previousPositions[i], currentVelocities[i], dt);
+			meshParticle[i].previousPositions[i] = meshParticle[i].currentPositions[i];
+			meshParticle[i].currentPositions[i] = verletIntegrator.GetNewPosition(meshParticle[i].previousPositions[i], meshParticle[i].currentVelocities[i], dt);
 
-			forceAcumulator[i] = { 0.f, 0.f, 0.f };
+			meshParticle[i].forceAcumulator[i] = { 0.f, 0.f, 0.f };
 		}
 	}
+
+	//for(int i = 0; i<steps; i++)
+	//{
+			//Mesh.Update(dt/steps);
+	//}
+	//Mesh.Render();
 }
 
 void MeshTest::RenderUpdateMesh()
@@ -64,7 +42,8 @@ void MeshTest::RenderUpdateMesh()
 		for (int col = 0; col < ClothMesh::numCols; col++)
 		{
 			int indx = GetIndex(col, row);
-			positions[indx] = glm::vec3(row - 5, col, 2.f);
+			positions[indx] = glm::vec3(row - 5, 10, col -5);
+			meshParticle[indx].currentPositions[indx] = positions[indx];
 		}
 	}
 

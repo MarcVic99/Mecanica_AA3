@@ -3,6 +3,7 @@
 #include "Simulator.h"
 #include "VerlettIntegrator.h"
 #include "Spring.h"
+#include "MeshParticles.h"
 
 extern bool renderCloth;
 
@@ -33,22 +34,10 @@ public:
 
 	int MeshTest::GetMaxMeshParticles();
 
-private:
+	//glm::vec3* forceAcumulator;
 	int numParticles;
 
-	glm::vec3* currentPositions;
-	glm::vec3* currentVelocities;
-
-	glm::vec3* previousPositions;
-	glm::vec3* previousVelocities;
-
-	glm::vec3* startingPositions;
-	glm::vec3* startingVelocities;
-
-	bool* isStatic;
-	glm::vec3* forceAcumulator;
-
-	const int particleMass = 1;
+	MeshParticles meshParticle[2];
 
 	VerlettIntegrator verletIntegrator;
 	Spring* structuralSprings;
