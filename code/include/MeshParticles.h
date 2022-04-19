@@ -5,8 +5,9 @@
 class MeshParticles
 {
 public:
-	MeshParticles(int maxParticles);
+	MeshParticles(int numParticles);
 	~MeshParticles();
+
 	int GetNumberOfParticles();
 
 	void Render();
@@ -23,6 +24,9 @@ public:
 	void SetMirrorParticlePosition(int particleId, glm::vec3 position);
 	void SetMirrorParticleVelocity(int particleId, glm::vec3 velocity);
 	
+
+	int numParticles;
+
 	glm::vec3* forceAcumulator;
 
 	glm::vec3* currentPositions;

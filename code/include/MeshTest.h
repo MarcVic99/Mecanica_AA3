@@ -26,10 +26,6 @@ public:
 
 	void Update(float dt);
 
-	int GetMaxMeshWidth(MeshTest mesh);
-
-	int GetMaxMeshHeight(MeshTest mesh);
-
 	void SetInitialMeshParticlePosition();
 
 	int MeshTest::GetMaxMeshParticles();
@@ -37,7 +33,7 @@ public:
 	//glm::vec3* forceAcumulator;
 	int numParticles;
 
-	MeshParticles meshParticle[2];
+	MeshParticles* meshParticles;
 
 	VerlettIntegrator verletIntegrator;
 	Spring* structuralSprings;

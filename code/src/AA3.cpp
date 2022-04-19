@@ -27,7 +27,7 @@ namespace Sphere
 }
 
 MeshTest* meshTest;
-MeshParticles meshParticles;
+
 #pragma region class
 AA3::AA3()
 {

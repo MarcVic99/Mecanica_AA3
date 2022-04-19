@@ -69,6 +69,11 @@ MeshParticles::~MeshParticles()
 
 };
 
+int MeshParticles::GetNumberOfParticles()
+{
+	return numParticles;
+};
+
 void MeshParticles::Render()
 {
 	LilSpheres::firstParticleIdx = 0;

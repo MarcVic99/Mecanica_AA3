@@ -3,7 +3,15 @@
 MeshTest::MeshTest()
 {
 	renderCloth = true;
+	meshParticles = new MeshParticles(ClothMesh::numCols * ClothMesh::numRows);
 }
+
+MeshTest::~MeshTest()
+{
+	delete meshParticles;
+	renderCloth = false;
+}
+
 
 int MeshTest::GetIndex(int col, int row)
 {
@@ -13,18 +21,18 @@ int MeshTest::GetIndex(int col, int row)
 void MeshTest::Update(float dt)
 {
 	// Do verlett thingy
-	for (int i = 0; i < numParticles; i++)
-	{
-		if (!meshParticle[i].isStatic)
-		{
-			meshParticle[i].currentVelocities[i] = verletIntegrator.GetAcceleration(meshParticle[i].forceAcumulator[i], meshParticle[i].particleMass);
+	//for (int i = 0; i < numParticles; i++)
+	//{
+	//	if (!meshParticle[i].isStatic)
+	//	{
+	//		meshParticle[i].currentVelocities[i] = verletIntegrator.GetAcceleration(meshParticle[i].forceAcumulator[i], meshParticle[i].particleMass);
 
-			meshParticle[i].previousPositions[i] = meshParticle[i].currentPositions[i];
-			meshParticle[i].currentPositions[i] = verletIntegrator.GetNewPosition(meshParticle[i].previousPositions[i], meshParticle[i].currentVelocities[i], dt);
+	//		meshParticle[i].previousPositions[i] = meshParticle[i].currentPositions[i];
+	//		meshParticle[i].currentPositions[i] = verletIntegrator.GetNewPosition(meshParticle[i].previousPositions[i], meshParticle[i].currentVelocities[i], dt);
 
-			meshParticle[i].forceAcumulator[i] = { 0.f, 0.f, 0.f };
-		}
-	}
+	//		meshParticle[i].forceAcumulator[i] = { 0.f, 0.f, 0.f };
+	//	}
+	//}
 
 	//for(int i = 0; i<steps; i++)
 	//{
@@ -43,17 +51,13 @@ void MeshTest::RenderUpdateMesh()
 		{
 			int indx = GetIndex(col, row);
 			positions[indx] = glm::vec3(row - 5, 10, col -5);
-			meshParticle[indx].currentPositions[indx] = positions[indx];
+			meshParticles->currentPositions[indx] = positions[indx];
 		}
 	}
-
+	meshParticles->Render();
 	ClothMesh::updateClothMesh(&(positions[0].x));
 }
 
-MeshTest::~MeshTest()
-{ 
-	renderCloth = false; 
-}
 
 int MeshTest::GetMaxMeshParticles()
 {
