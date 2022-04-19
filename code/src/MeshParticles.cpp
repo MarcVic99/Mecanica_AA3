@@ -36,7 +36,7 @@ MeshParticles::MeshParticles(int numParticles)
 	startingPositions = new glm::vec3[numParticles];
 	startingVelocities = new glm::vec3[numParticles];
 
-	
+	numMeshParticles = numParticles;
 	for (int i = 0; i < numParticles; i++)
 	{
 		if (i == 0 || i == 13)
@@ -71,7 +71,7 @@ MeshParticles::~MeshParticles()
 
 int MeshParticles::GetNumberOfParticles()
 {
-	return numParticles;
+	return numMeshParticles;
 };
 
 void MeshParticles::Render()

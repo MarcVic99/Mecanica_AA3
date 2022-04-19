@@ -31,13 +31,13 @@ public:
 	int MeshTest::GetMaxMeshParticles();
 
 	//glm::vec3* forceAcumulator;
-	int numParticles;
+	//int numParticles;
 
 	MeshParticles* meshParticles;
 
-	VerlettIntegrator verletIntegrator;
-	Spring* structuralSprings;
-	Spring* shearSprings;
-	Spring* bendingSprings;
+	//VerlettIntegrator verletIntegrator;
+	//Spring* structuralSprings;
+	//Spring* shearSprings;
+	//Spring* bendingSprings;
 };
 

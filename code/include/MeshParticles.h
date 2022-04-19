@@ -25,9 +25,9 @@ public:
 	void SetMirrorParticleVelocity(int particleId, glm::vec3 velocity);
 	
 
-	int numParticles;
+	int numMeshParticles;
 
-	glm::vec3* forceAcumulator;
+	//glm::vec3* forceAcumulator;
 
 	glm::vec3* currentPositions;
 	glm::vec3* currentVelocities;
