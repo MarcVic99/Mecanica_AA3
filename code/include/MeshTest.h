@@ -29,15 +29,15 @@ public:
 	void SetInitialMeshPosition();
 	void SetInitialMeshParticlePosition();
 
-	int MeshTest::GetMaxMeshParticles();
+	int MeshTest::GetNumMeshParticles();
 
 	glm::vec3* positions;
-	//glm::vec3* forceAcumulator;
+	glm::vec3* forceAcumulator;
 	//int numParticles;
 
 	MeshParticles* meshParticles;
 
-	//VerlettIntegrator verletIntegrator;
+	VerlettIntegrator verletIntegrator;
 	//Spring* structuralSprings;
 	//Spring* shearSprings;
 	//Spring* bendingSprings;

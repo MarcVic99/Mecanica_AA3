@@ -27,7 +27,9 @@ public:
 
 	int numMeshParticles;
 
-	//glm::vec3* forceAcumulator;
+	glm::vec3* forceAcumulator;
+
+	glm::vec3* nextPosition;
 
 	glm::vec3* currentPositions;
 	glm::vec3* currentVelocities;

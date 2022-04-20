@@ -49,7 +49,16 @@ AA3::~AA3()
 
 void AA3::Update(float dt)
 {
-	//meshTest->Update(dt);
+	VerlettIntegrator verlettIntegrator;
+
+	verlettIntegrator.StepVerlett(meshTest, dt);
+
+	//for(int i = 0; i<steps; i++)
+	//{
+			//Mesh.Update(dt/steps);
+	//}
+	//Mesh.Render();
+	meshTest->Update(dt);
 	Sphere::customSphereAA3.SphereMovement(renderSphere);
 }
 

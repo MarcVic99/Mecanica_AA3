@@ -39,11 +39,7 @@ void MeshTest::Update(float dt)
 	//	}
 	//}
 
-	//for(int i = 0; i<steps; i++)
-	//{
-			//Mesh.Update(dt/steps);
-	//}
-	//Mesh.Render();
+	
 }
 
 void MeshTest::RenderUpdateMesh()
@@ -72,8 +68,8 @@ void MeshTest::SetInitialMeshParticlePosition()
 	}
 }
 
-int MeshTest::GetMaxMeshParticles()
+int MeshTest::GetNumMeshParticles()
 {
-	return ClothMesh::numCols * ClothMesh::numRows;
+	return meshParticles->numMeshParticles;
 }
 
