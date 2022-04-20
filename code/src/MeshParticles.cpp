@@ -36,6 +36,8 @@ MeshParticles::MeshParticles(int numParticles)
 	startingPositions = new glm::vec3[numParticles];
 	startingVelocities = new glm::vec3[numParticles];
 
+	forceAcumulator = new glm::vec3[numParticles];
+
 	isStatic = new bool[numParticles];
 
 	numMeshParticles = numParticles;
@@ -57,6 +59,8 @@ MeshParticles::MeshParticles(int numParticles)
 
 		startingPositions[i] = currentPositions[i];
 		startingVelocities[i] = currentVelocities[i];
+
+		forceAcumulator[i] = glm::vec3(0.f, -9.8f, 0.f);
 	}
 };
 

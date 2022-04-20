@@ -29,8 +29,6 @@ public:
 
 	glm::vec3* forceAcumulator;
 
-	glm::vec3* nextPosition;
-
 	glm::vec3* currentPositions;
 	glm::vec3* currentVelocities;
 
@@ -41,7 +39,7 @@ public:
 	glm::vec3* startingVelocities;
 
 	bool* isStatic;
-	const int particleMass = 1;
+	const float particleMass = 1.f;
 
 };
 

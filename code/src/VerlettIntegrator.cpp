@@ -25,16 +25,18 @@ void VerlettIntegrator::StepVerlett(MeshTest* mesh, float dt)
 		currentPosition = mesh->meshParticles->GetCurrentParticlePosition(i);
 		
 		//Xt+1 = Xt + (Xt - Xt-1) + f/m * dt^2
-		//nextPosition = currentPosition + (currentPosition - previousPosition) + GetAcceleration() * (dt * dt)
+		nextPosition = currentPosition + (currentPosition - previousPosition) + GetAcceleration(mesh->meshParticles->forceAcumulator[i], mesh->meshParticles->particleMass) * (dt * dt);
+		mesh->meshParticles->previousPositions[i] = currentPosition;
+		mesh->meshParticles->currentPositions[i] = nextPosition;
+
+		mesh->meshParticles->forceAcumulator[i] = glm::vec3(0.f, -9.8f, 0.f);
 	}
 }
 
-//glm::vec3 VerlettIntegrator::GetAcceleration(MeshParticles* particle)
-//{
-//	//Do acceleration formula
-//	glm::vec3 acceleration;
-//	return acceleration;
-//}
+glm::vec3 VerlettIntegrator::GetAcceleration(glm::vec3 forceAcum, float mass)
+{
+	return forceAcum / mass;
+}
 
 glm::vec3 VerlettIntegrator::GetNewPosition(glm::vec3 currPos, glm::vec3 lastPos, glm::vec3 accel, float dt)
 {

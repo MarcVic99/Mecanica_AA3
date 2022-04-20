@@ -27,7 +27,7 @@ public:
 	void Update(float dt);
 
 	void SetInitialMeshPosition();
-	void SetInitialMeshParticlePosition();
+	void SetInitialMeshParticlePositionAndVelocity();
 
 	int MeshTest::GetNumMeshParticles();
 
@@ -37,7 +37,7 @@ public:
 
 	MeshParticles* meshParticles;
 
-	VerlettIntegrator verletIntegrator;
+	// VerlettIntegrator* verletIntegrator;
 	//Spring* structuralSprings;
 	//Spring* shearSprings;
 	//Spring* bendingSprings;
