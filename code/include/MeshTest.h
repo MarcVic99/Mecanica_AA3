@@ -26,10 +26,12 @@ public:
 
 	void Update(float dt);
 
+	void SetInitialMeshPosition();
 	void SetInitialMeshParticlePosition();
 
 	int MeshTest::GetMaxMeshParticles();
 
+	glm::vec3* positions;
 	//glm::vec3* forceAcumulator;
 	//int numParticles;
 

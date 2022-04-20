@@ -26,7 +26,6 @@ namespace Sphere
 	bool resetedRadiusAA3 = true;
 }
 
-MeshTest* meshTest;
 
 #pragma region class
 AA3::AA3()
@@ -36,6 +35,10 @@ AA3::AA3()
 	extern bool renderSphere; renderSphere = true;
 	extern bool renderParticles; renderParticles = false;
 	extern bool renderCloth; renderCloth = true;
+
+	meshTest = new MeshTest;
+
+	renderParticles = true;
 }
 
 AA3::~AA3()

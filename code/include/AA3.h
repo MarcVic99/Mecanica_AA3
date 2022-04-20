@@ -2,6 +2,7 @@
 #pragma once
 #include "Simulator.h"
 #include "ParticleSystem.h"
+#include "MeshTest.h"
 
 namespace Sphere {
 	extern void updateSphere(glm::vec3 pos, float radius);
@@ -9,6 +10,7 @@ namespace Sphere {
 
 extern bool renderSphere;
 extern bool renderCloth;
+extern bool renderParticles;
 
 class AA3 : public Simulator
 {
@@ -20,7 +22,10 @@ public:
 	void RenderUpdate();
 	void RenderGui();
 
+
 private:
+	MeshTest* meshTest;
+
 };
 
 

@@ -36,7 +36,10 @@ MeshParticles::MeshParticles(int numParticles)
 	startingPositions = new glm::vec3[numParticles];
 	startingVelocities = new glm::vec3[numParticles];
 
+	isStatic = new bool[numParticles];
+
 	numMeshParticles = numParticles;
+
 	for (int i = 0; i < numParticles; i++)
 	{
 		if (i == 0 || i == 13)

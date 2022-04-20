@@ -3,7 +3,12 @@
 MeshTest::MeshTest()
 {
 	renderCloth = true;
+	
+	positions = new glm::vec3[ClothMesh::numCols * ClothMesh::numRows];
+	SetInitialMeshPosition();
+
 	meshParticles = new MeshParticles(ClothMesh::numCols * ClothMesh::numRows);
+	SetInitialMeshParticlePosition();
 }
 
 MeshTest::~MeshTest()
@@ -43,28 +48,32 @@ void MeshTest::Update(float dt)
 
 void MeshTest::RenderUpdateMesh()
 {
-	glm::vec3* positions = new glm::vec3[ClothMesh::numCols * ClothMesh::numRows];
+	meshParticles->Render();
+	ClothMesh::updateClothMesh(&(positions[0].x));
+}
 
+void MeshTest::SetInitialMeshPosition()
+{
 	for (int row = 0; row < ClothMesh::numRows; row++)
 	{
 		for (int col = 0; col < ClothMesh::numCols; col++)
 		{
 			int indx = GetIndex(col, row);
-			positions[indx] = glm::vec3(row - 5, 10, col -5);
-			meshParticles->currentPositions[indx] = positions[indx];
+			positions[indx] = glm::vec3((row - 10)/2, 10, (col - 10)/2);
 		}
 	}
-	meshParticles->Render();
-	ClothMesh::updateClothMesh(&(positions[0].x));
 }
 
+void MeshTest::SetInitialMeshParticlePosition()
+{
+	for (int i = 0; i < meshParticles->numMeshParticles; i++) 
+	{
+		meshParticles->currentPositions[i] = positions[i];
+	}
+}
 
 int MeshTest::GetMaxMeshParticles()
 {
 	return ClothMesh::numCols * ClothMesh::numRows;
 }
 
-void MeshTest::SetInitialMeshParticlePosition()
-{
-	
-}
