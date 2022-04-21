@@ -9,6 +9,8 @@ MeshTest::MeshTest()
 
 	meshParticles = new MeshParticles(ClothMesh::numCols * ClothMesh::numRows);
 	SetInitialMeshParticlePositionAndVelocity();
+
+	structuralSprings = new Spring();
 }
 
 MeshTest::~MeshTest()

@@ -13,7 +13,7 @@ void VerlettIntegrator::StepVerlett(MeshTest* mesh, float dt)
 {
 	int currParticle = 0;
 
-	Spring spring(5.f, 5.f, glm::vec3(1.f, 1.f, 1.f)); // Test spring value (MUST BE DELETED & CHANGED FOR ARRAY)
+	Spring spring; // Test spring value (MUST BE DELETED & CHANGED FOR ARRAY)
 	
 	glm::vec3 previousPosition;
 	glm::vec3 currentPosition;

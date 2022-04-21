@@ -34,12 +34,10 @@ public:
 
 	glm::vec3* positions;
 	glm::vec3* forceAcumulator;
-	//int numParticles;
 
 	MeshParticles* meshParticles;
-
-	// VerlettIntegrator* verletIntegrator;
-	//Spring* structuralSprings;
+	
+	Spring* structuralSprings;
 	//Spring* shearSprings;
 	//Spring* bendingSprings;
 };
