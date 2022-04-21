@@ -27,41 +27,53 @@ void VerlettIntegrator::StepVerlett(MeshTest* mesh, float dt)
 		{
 			previousPosition = mesh->meshParticles->GetPreviousParticlePosition(currParticle);
 			currentPosition = mesh->meshParticles->GetCurrentParticlePosition(currParticle);
-
-			// Calculate forces
-			mesh->meshParticles->forceAcumulator[currParticle] = glm::vec3(0.f, -9.8f, 0.f);
-			if (j == 0)
+			
+			if (!mesh->meshParticles->isStatic[currParticle])
 			{
-				// Particle on the left
-				mesh->meshParticles->forceAcumulator[currParticle] += 
-					spring.GetStrenghtBetweenTwoPositions(currentPosition, mesh->meshParticles->GetCurrentParticlePosition(currParticle + 1), 
-														currentVelocity, mesh->meshParticles->GetCurrentParticleVelocity(i + 1));
-			}
-			else if (j == mesh->GetNumCols())
-			{
-				// Paricle on the right
-				mesh->meshParticles->forceAcumulator[currParticle] -= 
-					spring.GetStrenghtBetweenTwoPositions(mesh->meshParticles->GetCurrentParticlePosition(currParticle - 1), currentPosition, 
-														mesh->meshParticles->GetCurrentParticleVelocity(i - 1), currentVelocity);
-			}
-			else
-			{
-				mesh->meshParticles->forceAcumulator[currParticle] += 
-					(spring.GetStrenghtBetweenTwoPositions(currentPosition, mesh->meshParticles->GetCurrentParticlePosition(currParticle + 1), 
-														currentVelocity, mesh->meshParticles->GetCurrentParticleVelocity(i + 1))
-					- spring.GetStrenghtBetweenTwoPositions(mesh->meshParticles->GetCurrentParticlePosition(currParticle - 1), currentPosition, 
-														mesh->meshParticles->GetCurrentParticleVelocity(i - 1), currentVelocity));
-			}
+				// Calculate forces
+				//mesh->meshParticles->forceAcumulator[currParticle] = glm::vec3(0.f, -9.8f, 0.f);
+				//if (j == 0)
+				//{
+				//	// Particle on the left
+				//	mesh->meshParticles->forceAcumulator[currParticle] +=
+				//		spring.GetStrenghtBetweenTwoPositions(currentPosition, mesh->meshParticles->GetCurrentParticlePosition(currParticle + 1),
+				//			currentVelocity, mesh->meshParticles->GetCurrentParticleVelocity(i + 1));
+				//}
+				//else if (j == mesh->GetNumCols())
+				//{
+				//	// Paricle on the right
+				//	mesh->meshParticles->forceAcumulator[currParticle] -=
+				//		spring.GetStrenghtBetweenTwoPositions(mesh->meshParticles->GetCurrentParticlePosition(currParticle - 1), currentPosition,
+				//			mesh->meshParticles->GetCurrentParticleVelocity(i - 1), currentVelocity);
+				//}
+				//else
+				//{
+				//	mesh->meshParticles->forceAcumulator[currParticle] +=
+				//		(spring.GetStrenghtBetweenTwoPositions(currentPosition, mesh->meshParticles->GetCurrentParticlePosition(currParticle + 1),
+				//			currentVelocity, mesh->meshParticles->GetCurrentParticleVelocity(i + 1))
+				//			- spring.GetStrenghtBetweenTwoPositions(mesh->meshParticles->GetCurrentParticlePosition(currParticle - 1), currentPosition,
+				//				mesh->meshParticles->GetCurrentParticleVelocity(i - 1), currentVelocity));
+				//}
 
-			//Xt+1 = Xt + (Xt - Xt-1) + f/m * dt^2
-			nextPosition = currentPosition + (currentPosition - previousPosition) +
-				GetAcceleration(mesh->meshParticles->forceAcumulator[currParticle], mesh->meshParticles->particleMass) * (dt * dt);
+				//Xt+1 = Xt + (Xt - Xt-1) + f/m * dt^2
+				nextPosition = currentPosition + (currentPosition - previousPosition) +
+					GetAcceleration(mesh->meshParticles->forceAcumulator[currParticle], mesh->meshParticles->particleMass) * (dt * dt);
 
+				mesh->meshParticles->SetParticlePosition(currParticle, nextPosition);
+
+				// Reset values
+				mesh->meshParticles->forceAcumulator[currParticle] = glm::vec3(0.f, -9.8f, 0.f);
+			}
+			else {
+				printf("Particle: %i Static: %d \n", currParticle, mesh->meshParticles->isStatic[currParticle]);
+				printf("Particle: %i X: %f\n", currParticle, mesh->meshParticles->currentPositions[currParticle].x);
+				printf("Particle: %i Y: %f\n", currParticle, mesh->meshParticles->currentPositions[currParticle].y);
+				printf("Particle: %i Z: %f\n", currParticle, mesh->meshParticles->currentPositions[currParticle].z);
+				mesh->meshParticles->SetParticlePosition(currParticle, currentPosition);
+			}
+			
 			// Set values
-			mesh->meshParticles->SetParticlePosition(currParticle, nextPosition);
-
-			// Reset values
-			mesh->meshParticles->forceAcumulator[currParticle] = glm::vec3(0.f, -9.8f, 0.f);
+			
 
 			currParticle++;
 		}

@@ -51,16 +51,16 @@ MeshParticles::MeshParticles(int numParticles)
 		else {
 			isStatic[i] = false;
 		}
-		currentPositions[i] = glm::vec3(0.f, 0.f, 0.f);
+		/*currentPositions[i] = glm::vec3(0.f, 0.f, 0.f);
 		currentVelocities[i] = glm::vec3(0.f, 0.f, 0.f);
 
 		previousPositions[i] = glm::vec3(0.f, 0.f, 0.f);
 		previousVelocities[i] = glm::vec3(0.f, 0.f, 0.f);
 
 		startingPositions[i] = currentPositions[i];
-		startingVelocities[i] = currentVelocities[i];
+		startingVelocities[i] = currentVelocities[i];*/
 
-		forceAcumulator[i] = glm::vec3(0.f, -9.8f, 0.f);
+		forceAcumulator[i] = glm::vec3(0.f, 0.f, 0.f);
 	}
 };
 
