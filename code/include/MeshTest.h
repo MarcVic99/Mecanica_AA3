@@ -1,7 +1,6 @@
 #pragma once
 #include <glm/glm.hpp>
 #include "Simulator.h"
-#include "VerlettIntegrator.h"
 #include "Spring.h"
 #include "MeshParticles.h"
 

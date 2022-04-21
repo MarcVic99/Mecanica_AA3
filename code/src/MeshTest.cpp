@@ -25,7 +25,7 @@ int MeshTest::GetIndex(int col, int row)
 
 void MeshTest::Update(float dt)
 {
-		
+	
 }
 
 void MeshTest::RenderUpdateMesh()

@@ -1,10 +1,10 @@
 #include <glm\glm.hpp>
-#include "EulerIntegrator.h";
 #include "AA3.h"
 #include "Geometry.h"
 #include <imgui/imgui.h>
 #include <time.h>
 #include "MeshTest.h"
+#include "VerlettIntegrator.h"
 
 namespace Planes
 {
@@ -58,7 +58,9 @@ void AA3::Update(float dt)
 			//Mesh.Update(dt/steps);
 	//}
 	//Mesh.Render();
-	meshTest->Update(dt);
+	//meshTest->Update(dt);
+	
+	verlettIntegrator.StepVerlett(meshTest, dt);
 	Sphere::customSphereAA3.SphereMovement(renderSphere);
 }
 
@@ -105,7 +107,6 @@ void AA3::RenderGui()
 			Sphere::customSphereAA3.sphereCenter = glm::vec3(0.f, 1.f, 0.f);
 		}
 	}
-
 };
 
 #pragma endregion

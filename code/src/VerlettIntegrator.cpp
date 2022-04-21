@@ -11,14 +11,60 @@ VerlettIntegrator::~VerlettIntegrator()
 
 void VerlettIntegrator::StepVerlett(MeshTest* mesh, float dt)
 {
+	int currParticle = 0;
+
 	Spring spring(5.f, 5.f, glm::vec3(1.f, 1.f, 1.f)); // Test spring value (MUST BE DELETED & CHANGED FOR ARRAY)
+	
 	glm::vec3 previousPosition;
 	glm::vec3 currentPosition;
 	glm::vec3 nextPosition;
 
 	glm::vec3 currentVelocity;
 
-	for (int i = 0; i < mesh->GetNumMeshParticles(); i++)
+	for (int i = 0; i < mesh->GetNumRows(); i++)
+	{
+		for (int j = 0; j < mesh->GetNumCols(); j++)
+		{
+			previousPosition = mesh->meshParticles->GetPreviousParticlePosition(currParticle);
+			currentPosition = mesh->meshParticles->GetCurrentParticlePosition(currParticle);
+
+			// Calculate forces
+			mesh->meshParticles->forceAcumulator[currParticle] = glm::vec3(0.f, -9.8f, 0.f);
+			if (j == 0)
+			{
+				// Particle on the left
+				mesh->meshParticles->forceAcumulator[currParticle] += 
+					spring.GetStrenghtBetweenTwoPositions(currentPosition, mesh->meshParticles->GetCurrentParticlePosition(currParticle + 1));
+			}
+			else if (j == mesh->GetNumCols())
+			{
+				// Paricle on the right
+				mesh->meshParticles->forceAcumulator[currParticle] -= 
+					spring.GetStrenghtBetweenTwoPositions(mesh->meshParticles->GetCurrentParticlePosition(currParticle - 1), currentPosition);
+			}
+			else
+			{
+				mesh->meshParticles->forceAcumulator[currParticle] += 
+					(spring.GetStrenghtBetweenTwoPositions(currentPosition, mesh->meshParticles->GetCurrentParticlePosition(currParticle + 1))
+					- spring.GetStrenghtBetweenTwoPositions(mesh->meshParticles->GetCurrentParticlePosition(currParticle - 1), currentPosition));
+			}
+
+			//Xt+1 = Xt + (Xt - Xt-1) + f/m * dt^2
+			nextPosition = currentPosition + (currentPosition - previousPosition) +
+				GetAcceleration(mesh->meshParticles->forceAcumulator[currParticle], mesh->meshParticles->particleMass) * (dt * dt);
+
+			// Set values
+			mesh->meshParticles->SetParticlePosition(currParticle, nextPosition);
+
+			// Reset values
+			mesh->meshParticles->forceAcumulator[currParticle] = glm::vec3(0.f, -9.8f, 0.f);
+
+			currParticle++;
+		}
+	}
+	currParticle = 0;
+
+	/*for (int i = 0; i < mesh->GetNumMeshParticles(); i++)
 	{
 		previousPosition = mesh->meshParticles->GetPreviousParticlePosition(i);
 		currentPosition = mesh->meshParticles->GetCurrentParticlePosition(i);
@@ -47,7 +93,7 @@ void VerlettIntegrator::StepVerlett(MeshTest* mesh, float dt)
 
 		// Reset values
 		mesh->meshParticles->forceAcumulator[i] = glm::vec3(0.f, -9.8f, 0.f);
-	}
+	}*/
 }
 
 glm::vec3 VerlettIntegrator::GetAcceleration(glm::vec3 forceAcum, float mass)

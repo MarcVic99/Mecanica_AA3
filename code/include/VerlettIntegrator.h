@@ -15,9 +15,6 @@ public:
 	glm::vec3 GetNewPosition(glm::vec3 currPos, glm::vec3 lastPos, glm::vec3 accel, float dt);
 	glm::vec3 GetNewVelocity(glm::vec3 currPos, glm::vec3 lastPos, float dt);
 
-	glm::vec3 CalculateNextForceAcumulator(Spring* spring, glm::vec3 currentParticlePos, glm::vec3 nextParticlePos);
-	glm::vec3 CalculatePreviousForceAcumulator(Spring* spring, glm::vec3 currentParticlePos, glm::vec3 previousParticlePos);
-
 private:
 	VerlettIntegrator* verlettIntegrator;
 };
