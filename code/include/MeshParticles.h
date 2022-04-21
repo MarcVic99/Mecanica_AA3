@@ -23,7 +23,7 @@ public:
 
 	void SetMirrorParticlePosition(int particleId, glm::vec3 position);
 	void SetMirrorParticleVelocity(int particleId, glm::vec3 velocity);
-	
+	void ResetParticleForce(int particleId);
 
 	int numMeshParticles;
 

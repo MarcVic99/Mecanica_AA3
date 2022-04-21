@@ -51,16 +51,15 @@ void AA3::Update(float dt)
 {
 	VerlettIntegrator verlettIntegrator;
 
-	verlettIntegrator.StepVerlett(meshTest, dt);
-
+	//int steps = 10;
 	//for(int i = 0; i<steps; i++)
 	//{
-			//Mesh.Update(dt/steps);
+	//	//Calculate forces
+	//	meshTest->Update(dt/steps);
 	//}
-	//Mesh.Render();
-	//meshTest->Update(dt);
-	
+
 	verlettIntegrator.StepVerlett(meshTest, dt);
+
 	Sphere::customSphereAA3.SphereMovement(renderSphere);
 }
 

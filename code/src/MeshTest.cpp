@@ -1,4 +1,5 @@
 #include "MeshTest.h"
+#include "Spring.h"
 
 MeshTest::MeshTest()
 {
@@ -10,7 +11,8 @@ MeshTest::MeshTest()
 	meshParticles = new MeshParticles(ClothMesh::numCols * ClothMesh::numRows);
 	SetInitialMeshParticlePositionAndVelocity();
 
-	structuralSprings = new Spring();
+	//structuralSprings = new Spring[(ClothMesh::numCols - 1) * (ClothMesh::numRows - 1)];
+	structuralSprings = new Spring[1];
 }
 
 MeshTest::~MeshTest()
@@ -27,7 +29,14 @@ int MeshTest::GetIndex(int col, int row)
 
 void MeshTest::Update(float dt)
 {
-	
+	for (int row = 0; row < ClothMesh::numRows; row++)
+	{
+		for (int col = 0; col < ClothMesh::numCols; col++)
+		{
+			int indx = GetIndex(col, row);
+			//positions[indx] = glm::vec3((row - 10), 10, (col - 10));
+		}
+	}
 }
 
 void MeshTest::RenderUpdateMesh()
@@ -38,12 +47,13 @@ void MeshTest::RenderUpdateMesh()
 
 void MeshTest::SetInitialMeshPosition()
 {
-	for (int row = 0; row < ClothMesh::numRows; row++)
+	for (float row = 0; row < ClothMesh::numRows; row++)
 	{
-		for (int col = 0; col < ClothMesh::numCols; col++)
+		for (float col = 0; col < ClothMesh::numCols; col++)
 		{
 			int indx = GetIndex(col, row);
-			positions[indx] = glm::vec3((row - 10)/2, 10, (col - 10)/2);
+			positions[indx] = glm::vec3((row - 10), 10, (col - 5));
+			positions[indx] = positions[indx] / glm::vec3(3, 1, 3);
 		}
 	}
 }
@@ -72,3 +82,4 @@ int MeshTest::GetNumRows()
 {
 	return ClothMesh::numRows;
 }
+

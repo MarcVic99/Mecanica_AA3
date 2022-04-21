@@ -140,3 +140,8 @@ void MeshParticles::SetMirrorParticleVelocity(int particleId, glm::vec3 velocity
 {
 	currentVelocities[particleId] = velocity;
 }
+
+void MeshParticles::ResetParticleForce(int particleId)
+{
+	forceAcumulator[particleId] = glm::vec3(0.f, -9.8f, 0.f);
+}

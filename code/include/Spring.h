@@ -24,5 +24,6 @@ public:
 		STRETCH,
 	};
 
+	SpringType type;
 };
 

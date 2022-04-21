@@ -1,7 +1,6 @@
 #pragma once
 #include <glm\glm.hpp>
 #include "MeshTest.h"
-#include "Spring.h"
 
 class VerlettIntegrator
 {
