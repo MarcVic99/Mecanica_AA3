@@ -34,19 +34,23 @@ void VerlettIntegrator::StepVerlett(MeshTest* mesh, float dt)
 			{
 				// Particle on the left
 				mesh->meshParticles->forceAcumulator[currParticle] += 
-					spring.GetStrenghtBetweenTwoPositions(currentPosition, mesh->meshParticles->GetCurrentParticlePosition(currParticle + 1));
+					spring.GetStrenghtBetweenTwoPositions(currentPosition, mesh->meshParticles->GetCurrentParticlePosition(currParticle + 1), 
+														currentVelocity, mesh->meshParticles->GetCurrentParticleVelocity(i + 1));
 			}
 			else if (j == mesh->GetNumCols())
 			{
 				// Paricle on the right
 				mesh->meshParticles->forceAcumulator[currParticle] -= 
-					spring.GetStrenghtBetweenTwoPositions(mesh->meshParticles->GetCurrentParticlePosition(currParticle - 1), currentPosition);
+					spring.GetStrenghtBetweenTwoPositions(mesh->meshParticles->GetCurrentParticlePosition(currParticle - 1), currentPosition, 
+														mesh->meshParticles->GetCurrentParticleVelocity(i - 1), currentVelocity);
 			}
 			else
 			{
 				mesh->meshParticles->forceAcumulator[currParticle] += 
-					(spring.GetStrenghtBetweenTwoPositions(currentPosition, mesh->meshParticles->GetCurrentParticlePosition(currParticle + 1))
-					- spring.GetStrenghtBetweenTwoPositions(mesh->meshParticles->GetCurrentParticlePosition(currParticle - 1), currentPosition));
+					(spring.GetStrenghtBetweenTwoPositions(currentPosition, mesh->meshParticles->GetCurrentParticlePosition(currParticle + 1), 
+														currentVelocity, mesh->meshParticles->GetCurrentParticleVelocity(i + 1))
+					- spring.GetStrenghtBetweenTwoPositions(mesh->meshParticles->GetCurrentParticlePosition(currParticle - 1), currentPosition, 
+														mesh->meshParticles->GetCurrentParticleVelocity(i - 1), currentVelocity));
 			}
 
 			//Xt+1 = Xt + (Xt - Xt-1) + f/m * dt^2
