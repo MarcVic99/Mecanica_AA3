@@ -60,3 +60,12 @@ int MeshTest::GetNumMeshParticles()
 	return meshParticles->numMeshParticles;
 }
 
+int MeshTest::GetNumCols()
+{
+	return ClothMesh::numCols;
+}
+
+int MeshTest::GetNumRows()
+{
+	return ClothMesh::numRows;
+}

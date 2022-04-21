@@ -4,7 +4,7 @@
 class Spring
 {
 public:
-	Spring(float k, glm::vec3 equilDist);
+	Spring(float k, float damp, glm::vec3 equilDist);
 	~Spring();
 
 	glm::vec3 GetStrenghtBetweenTwoPositions(glm::vec3 pos1, glm::vec3 pos2);
@@ -16,6 +16,7 @@ public:
 	float constant;
 	float damping;
 	//float longitude;
+
 	enum SpringType
 	{
 		BENDING,

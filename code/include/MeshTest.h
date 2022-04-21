@@ -29,7 +29,9 @@ public:
 	void SetInitialMeshPosition();
 	void SetInitialMeshParticlePositionAndVelocity();
 
-	int MeshTest::GetNumMeshParticles();
+	int GetNumMeshParticles();
+	int GetNumCols();
+	int GetNumRows();
 
 	glm::vec3* positions;
 	glm::vec3* forceAcumulator;
