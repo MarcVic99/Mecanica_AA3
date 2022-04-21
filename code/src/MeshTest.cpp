@@ -52,6 +52,7 @@ void MeshTest::SetInitialMeshParticlePositionAndVelocity()
 	{
 		meshParticles->currentPositions[i] = positions[i];
 		meshParticles->currentVelocities[i] = glm::vec3(0,0,0);
+		meshParticles->previousPositions[i] = positions[i];
 	}
 }
 
