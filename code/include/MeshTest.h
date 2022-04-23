@@ -3,6 +3,7 @@
 #include "Simulator.h"
 #include "Spring.h"
 #include "MeshParticles.h"
+#include <vector>
 
 extern bool renderCloth;
 
@@ -23,7 +24,7 @@ public:
 
 	void RenderUpdateMesh();
 
-	void Update(float dt);
+	void Update();
 
 	void SetInitialMeshPosition();
 	void SetInitialMeshParticlePositionAndVelocity();
@@ -36,15 +37,20 @@ public:
 
 	void SetInitialPositionSprings();
 
-	float GetParticleDistance();
+	void SetAcceleration(int index, glm::vec3 springForce);
+
+	float GetParticleDistance(int firstParticleIndx, int secondParticleIndx);
+	glm::vec3 GetParticlePosition(int particleId);
 
 	glm::vec3* positions;
 	glm::vec3* forceAcumulator;
 
 	MeshParticles* meshParticles;
 	
-	Spring* structuralSprings;
-	//Spring* shearSprings;
+	std::vector<Spring> structuralSpringsHorizontal;
+	std::vector<Spring> structuralSpringsVertical;
+	Spring* shearSpringsRight;
+	Spring* shearSpringsLeft;
 	//Spring* bendingSprings;
 };
 
