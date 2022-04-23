@@ -32,6 +32,12 @@ public:
 	int GetNumCols();
 	int GetNumRows();
 
+	void ApplySpringForces();
+
+	void SetInitialPositionSprings();
+
+	float GetParticleDistance();
+
 	glm::vec3* positions;
 	glm::vec3* forceAcumulator;
 

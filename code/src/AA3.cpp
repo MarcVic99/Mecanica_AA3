@@ -39,6 +39,7 @@ AA3::AA3()
 	meshTest = new MeshTest;
 
 	renderParticles = true;
+	steps = 10;
 }
 
 AA3::~AA3()
@@ -51,11 +52,11 @@ void AA3::Update(float dt)
 {
 	VerlettIntegrator verlettIntegrator;
 
-	//int steps = 10;
 	//for(int i = 0; i<steps; i++)
 	//{
 	//	//Calculate forces
-	//	meshTest->Update(dt/steps);
+	//	meshTest->Update();
+	// verlettIntegrator.StepVerlett(meshTest, dt);
 	//}
 
 	verlettIntegrator.StepVerlett(meshTest, dt);

@@ -31,7 +31,6 @@ void VerlettIntegrator::StepVerlett(MeshTest* mesh, float dt)
 			if (!mesh->meshParticles->isStatic[currParticle])
 			{
 				// Calculate forces
-				//mesh->meshParticles->forceAcumulator[currParticle] = glm::vec3(0.f, -9.8f, 0.f);
 				//if (j == 0)
 				//{
 				//	// Particle on the left

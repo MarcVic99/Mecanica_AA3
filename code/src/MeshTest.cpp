@@ -12,7 +12,6 @@ MeshTest::MeshTest()
 	SetInitialMeshParticlePositionAndVelocity();
 
 	//structuralSprings = new Spring[(ClothMesh::numCols - 1) * (ClothMesh::numRows - 1)];
-	structuralSprings = new Spring[1];
 }
 
 MeshTest::~MeshTest()
@@ -29,14 +28,7 @@ int MeshTest::GetIndex(int col, int row)
 
 void MeshTest::Update(float dt)
 {
-	for (int row = 0; row < ClothMesh::numRows; row++)
-	{
-		for (int col = 0; col < ClothMesh::numCols; col++)
-		{
-			int indx = GetIndex(col, row);
-			//positions[indx] = glm::vec3((row - 10), 10, (col - 10));
-		}
-	}
+
 }
 
 void MeshTest::RenderUpdateMesh()
@@ -65,6 +57,7 @@ void MeshTest::SetInitialMeshParticlePositionAndVelocity()
 		meshParticles->currentPositions[i] = positions[i];
 		meshParticles->currentVelocities[i] = glm::vec3(0,0,0);
 		meshParticles->previousPositions[i] = positions[i];
+		meshParticles->startingPositions[i] = positions[i];
 	}
 }
 
@@ -83,3 +76,27 @@ int MeshTest::GetNumRows()
 	return ClothMesh::numRows;
 }
 
+void MeshTest::SetInitialPositionSprings()
+{	
+	int structuralK = 500.0f;
+	//float structuralEquilibriumD :
+	int structuralDampingK = 20.0f;
+
+	int index = 0;
+	for (int row = 0; row < ClothMesh::numRows; row++) 
+	{
+		for (int col = 0; col < ClothMesh::numCols - 1; col++) {
+			//structuralSprings = Spring[index]();
+			index++;
+		}
+	}
+}
+void MeshTest::ApplySpringForces()
+{
+
+}
+
+float MeshTest::GetParticleDistance()
+{
+	return glm::distance(meshParticles->startingPositions[0], meshParticles->startingPositions[1]);
+}

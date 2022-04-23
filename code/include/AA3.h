@@ -25,7 +25,7 @@ public:
 
 private:
 	MeshTest* meshTest;
-
+	int steps;
 };
 
 
