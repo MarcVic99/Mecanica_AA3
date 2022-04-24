@@ -49,8 +49,11 @@ public:
 	
 	std::vector<Spring> structuralSpringsHorizontal;
 	std::vector<Spring> structuralSpringsVertical;
-	Spring* shearSpringsRight;
-	Spring* shearSpringsLeft;
-	//Spring* bendingSprings;
+	
+	std::vector<Spring> bendingSpringsHorizontal;
+	std::vector<Spring> bendingSpringsVertical;
+
+	std::vector<Spring> shearSpringsRight; // ( \ )
+	std::vector<Spring> shearSpringsLeft; // ( / )
 };
 

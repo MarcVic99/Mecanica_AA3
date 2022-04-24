@@ -138,7 +138,7 @@ void MeshParticles::SetMirrorParticlePosition(int particleId, glm::vec3 position
 
 void MeshParticles::SetMirrorParticleVelocity(int particleId, glm::vec3 velocity)
 {
-	currentVelocities[particleId] = velocity;
+	currentVelocities[particleId] = velocity / glm::vec3 (2,2,2);
 }
 
 void MeshParticles::ResetParticleForce(int particleId)

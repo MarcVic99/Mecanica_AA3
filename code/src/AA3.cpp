@@ -39,7 +39,7 @@ AA3::AA3()
 	meshTest = new MeshTest;
 
 	renderParticles = true;
-	steps = 20;
+	steps = 10;
 }
 
 AA3::~AA3()
@@ -51,12 +51,62 @@ AA3::~AA3()
 void AA3::Update(float dt)
 {
 	VerlettIntegrator verlettIntegrator;
+	glm::vec3* mirrorRes;
 
 	for(int i = 0; i < steps; i++)
 	{
 		//Calculate forces
 		meshTest->Update();
 		verlettIntegrator.StepVerlett(meshTest, dt / steps);
+
+		for (int i = 0; i < meshTest->meshParticles->numMeshParticles; i++)
+		{
+			if (Planes::bottomPlaneAA3.CheckBottomColision(meshTest->meshParticles->GetCurrentParticlePosition(i)))
+			{
+				mirrorRes = Planes::bottomPlaneAA3.CalculateParticleMirror(meshTest->meshParticles->GetCurrentParticlePosition(i),
+					meshTest->meshParticles->GetCurrentParticleVelocity(i));
+
+				meshTest->meshParticles->SetMirrorParticlePosition(i, mirrorRes[0]);
+				meshTest->meshParticles->SetMirrorParticleVelocity(i, mirrorRes[1]);
+			}
+
+			if (Planes::topPlaneAA3.CheckTopColision(meshTest->meshParticles->GetCurrentParticlePosition(i)))
+			{
+				mirrorRes = Planes::topPlaneAA3.CalculateParticleMirror(meshTest->meshParticles->GetCurrentParticlePosition(i),
+					meshTest->meshParticles->GetCurrentParticleVelocity(i));
+
+				meshTest->meshParticles->SetMirrorParticlePosition(i, mirrorRes[0]);
+				meshTest->meshParticles->SetMirrorParticleVelocity(i, mirrorRes[1]);
+			}
+
+			if (Planes::leftPlaneAA3.CheckLeftColision(meshTest->meshParticles->GetCurrentParticlePosition(i)))
+			{
+				mirrorRes = Planes::leftPlaneAA3.CalculateParticleMirror(meshTest->meshParticles->GetCurrentParticlePosition(i),
+					meshTest->meshParticles->GetCurrentParticleVelocity(i));
+
+				meshTest->meshParticles->SetMirrorParticlePosition(i, mirrorRes[0]);
+				meshTest->meshParticles->SetMirrorParticleVelocity(i, mirrorRes[1]);
+			}
+
+			if (Planes::rightPlaneAA3.CheckRightColision(meshTest->meshParticles->GetCurrentParticlePosition(i)))
+			{
+				mirrorRes = Planes::rightPlaneAA3.CalculateParticleMirror(meshTest->meshParticles->GetCurrentParticlePosition(i),
+					meshTest->meshParticles->GetCurrentParticleVelocity(i));
+
+				meshTest->meshParticles->SetMirrorParticlePosition(i, mirrorRes[0]);
+				meshTest->meshParticles->SetMirrorParticleVelocity(i, mirrorRes[1]);
+			}
+
+			// === Check Sphere Collisions ===
+			if (Sphere::customSphereAA3.CheckCollisionSphere(meshTest->meshParticles->GetCurrentParticlePosition(i)))
+			{
+				mirrorRes = Sphere::customSphereAA3.CalculateParticleMirror(meshTest->meshParticles->GetPreviousParticlePosition(i),
+					meshTest->meshParticles->GetCurrentParticlePosition(i), meshTest->meshParticles->GetCurrentParticleVelocity(i));
+
+				meshTest->meshParticles->SetMirrorParticlePosition(i, mirrorRes[0]);
+				meshTest->meshParticles->SetMirrorParticleVelocity(i, mirrorRes[1]);
+			}
+		}
 	}
 
 	Sphere::customSphereAA3.SphereMovement(renderSphere);
