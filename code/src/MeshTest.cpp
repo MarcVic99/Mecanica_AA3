@@ -108,7 +108,7 @@ void MeshTest::SetInitialPositionSprings()
 			structuralSpringsHorizontal[index].equilibriumDistance = GetParticleDistance(GetIndex(col, row), GetIndex(col + 1, row));
 
 			structuralSpringsHorizontal[index].constantK = 500.f;
-			structuralSpringsHorizontal[index].dampingK = 20.f;
+			structuralSpringsHorizontal[index].damping = 20.f;
 			
 			index++;
 		}
@@ -125,7 +125,7 @@ void MeshTest::SetInitialPositionSprings()
 
 			structuralSpringsVertical[index].equilibriumDistance = GetParticleDistance(GetIndex(col, row), GetIndex(col, row + 1));
 			structuralSpringsVertical[index].constantK = 500.f;
-			structuralSpringsVertical[index].dampingK = 20.f;
+			structuralSpringsVertical[index].damping = 20.f;
 
 			index++;
 		}
@@ -142,7 +142,7 @@ void MeshTest::SetInitialPositionSprings()
 
 			bendingSpringsHorizontal[index].equilibriumDistance = GetParticleDistance(GetIndex(col, row), GetIndex(col + 2, row));
 			bendingSpringsHorizontal[index].constantK = 1000.f;
-			bendingSpringsHorizontal[index].dampingK = 40.f;
+			bendingSpringsHorizontal[index].damping = 40.f;
 
 			index++;
 		}
@@ -159,7 +159,7 @@ void MeshTest::SetInitialPositionSprings()
 
 			bendingSpringsVertical[index].equilibriumDistance = GetParticleDistance(GetIndex(col, row), GetIndex(col, row + 2));
 			bendingSpringsVertical[index].constantK = 1000.f;
-			bendingSpringsVertical[index].dampingK = 40.f;
+			bendingSpringsVertical[index].damping = 40.f;
 
 			index++;
 		}
@@ -176,7 +176,7 @@ void MeshTest::SetInitialPositionSprings()
 
 			shearSpringsRight[index].equilibriumDistance = GetParticleDistance(GetIndex(col, row), GetIndex(col + 1, row + 1));
 			shearSpringsRight[index].constantK = 700.f;
-			shearSpringsRight[index].dampingK = 25.f;
+			shearSpringsRight[index].damping = 25.f;
 
 			index++;
 		}
@@ -193,7 +193,7 @@ void MeshTest::SetInitialPositionSprings()
 
 			shearSpringsLeft[index].equilibriumDistance = GetParticleDistance(GetIndex(col, row), GetIndex(col - 1, row + 1));
 			shearSpringsLeft[index].constantK = 700.f;
-			shearSpringsLeft[index].dampingK = 25.f;
+			shearSpringsLeft[index].damping = 25.f;
 
 			index++;
 		}

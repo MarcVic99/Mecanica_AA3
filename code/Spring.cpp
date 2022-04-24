@@ -21,7 +21,7 @@ glm::vec3 Spring::GetStrenghtBetweenTwoPositions(glm::vec3 pos1, glm::vec3 pos2,
 	glm::vec3 vectorPos2Pos1 = CalculateVectorBetweenTwoPointsSpring(pos1, pos2);
 	glm::vec3 normalizedVectorPos2Pos1 = glm::normalize(vectorPos2Pos1);
 
-	float damping = glm::dot(dampingK * (vel1 - vel2), normalizedVectorPos2Pos1);
+	float damping = glm::dot(damping * (vel1 - vel2), normalizedVectorPos2Pos1);
 	
 	resultingStr = -(constantK * (glm::length(vectorPos2Pos1) - equilibriumDistance) + damping) * normalizedVectorPos2Pos1;
 

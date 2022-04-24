@@ -13,6 +13,6 @@ public:
 
 	float equilibriumDistance;
 	float constantK;
-	float dampingK;
+	float damping;
 };
 
