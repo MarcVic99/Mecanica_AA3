@@ -102,8 +102,8 @@ void MeshTest::SetInitialPositionSprings()
 		{
 			// Structural Horizontal
 		
-			structuralSpringsHorizontal[index].particle1 = GetIndex(col, row);
-			structuralSpringsHorizontal[index].particle2 = GetIndex(col + 1, row);
+			structuralSpringsHorizontal[index].firstParticleIndex = GetIndex(col, row);
+			structuralSpringsHorizontal[index].secondParticleIndex = GetIndex(col + 1, row);
 
 			structuralSpringsHorizontal[index].equilibriumDistance = GetParticleDistance(GetIndex(col, row), GetIndex(col + 1, row));
 
@@ -120,8 +120,8 @@ void MeshTest::SetInitialPositionSprings()
 		for (int col = 0; col < ClothMesh::numCols; col++) 
 		{
 			// Structural Vertical
-			structuralSpringsVertical[index].particle1 = GetIndex(col, row);
-			structuralSpringsVertical[index].particle2 = GetIndex(col, row + 1);
+			structuralSpringsVertical[index].firstParticleIndex = GetIndex(col, row);
+			structuralSpringsVertical[index].secondParticleIndex = GetIndex(col, row + 1);
 
 			structuralSpringsVertical[index].equilibriumDistance = GetParticleDistance(GetIndex(col, row), GetIndex(col, row + 1));
 			structuralSpringsVertical[index].constantK = 500.f;
@@ -137,8 +137,8 @@ void MeshTest::SetInitialPositionSprings()
 		for (int col = 0; col < ClothMesh::numCols - 2; col++)
 		{
 			// Bending Horizontal
-			bendingSpringsHorizontal[index].particle1 = GetIndex(col, row);
-			bendingSpringsHorizontal[index].particle2 = GetIndex(col + 2, row);
+			bendingSpringsHorizontal[index].firstParticleIndex = GetIndex(col, row);
+			bendingSpringsHorizontal[index].secondParticleIndex = GetIndex(col + 2, row);
 
 			bendingSpringsHorizontal[index].equilibriumDistance = GetParticleDistance(GetIndex(col, row), GetIndex(col + 2, row));
 			bendingSpringsHorizontal[index].constantK = 1000.f;
@@ -154,8 +154,8 @@ void MeshTest::SetInitialPositionSprings()
 		for (int col = 0; col < ClothMesh::numCols; col++)
 		{
 			// Bending Vertical
-			bendingSpringsVertical[index].particle1 = GetIndex(col, row);
-			bendingSpringsVertical[index].particle2 = GetIndex(col, row + 2);
+			bendingSpringsVertical[index].firstParticleIndex = GetIndex(col, row);
+			bendingSpringsVertical[index].secondParticleIndex = GetIndex(col, row + 2);
 
 			bendingSpringsVertical[index].equilibriumDistance = GetParticleDistance(GetIndex(col, row), GetIndex(col, row + 2));
 			bendingSpringsVertical[index].constantK = 1000.f;
@@ -171,8 +171,8 @@ void MeshTest::SetInitialPositionSprings()
 		for (int col = 0; col < ClothMesh::numCols - 1; col++)
 		{
 			// Shear Right
-			shearSpringsRight[index].particle1 = GetIndex(col, row);
-			shearSpringsRight[index].particle2 = GetIndex(col + 1, row + 1);
+			shearSpringsRight[index].firstParticleIndex = GetIndex(col, row);
+			shearSpringsRight[index].secondParticleIndex = GetIndex(col + 1, row + 1);
 
 			shearSpringsRight[index].equilibriumDistance = GetParticleDistance(GetIndex(col, row), GetIndex(col + 1, row + 1));
 			shearSpringsRight[index].constantK = 700.f;
@@ -188,8 +188,8 @@ void MeshTest::SetInitialPositionSprings()
 		for (int col = 1; col < ClothMesh::numCols; col++)
 		{
 			// Shear Left
-			shearSpringsLeft[index].particle1 = GetIndex(col, row);
-			shearSpringsLeft[index].particle2 = GetIndex(col - 1, row + 1);
+			shearSpringsLeft[index].firstParticleIndex = GetIndex(col, row);
+			shearSpringsLeft[index].secondParticleIndex = GetIndex(col - 1, row + 1);
 
 			shearSpringsLeft[index].equilibriumDistance = GetParticleDistance(GetIndex(col, row), GetIndex(col - 1, row + 1));
 			shearSpringsLeft[index].constantK = 700.f;
@@ -206,70 +206,70 @@ void MeshTest::ApplySpringForces()
 	// == STRUCTURAL ==
 	for (int i = 0; i < structuralSpringsHorizontal.size(); i++)
 	{
-		springForce = structuralSpringsHorizontal[i].GetStrenghtBetweenTwoPositions(meshParticles->currentPositions[structuralSpringsHorizontal[i].particle1],
-			meshParticles->currentPositions[structuralSpringsHorizontal[i].particle2],
-			meshParticles->currentVelocities[structuralSpringsHorizontal[i].particle1],
-			meshParticles->currentVelocities[structuralSpringsHorizontal[i].particle2]);
+		springForce = structuralSpringsHorizontal[i].GetStrenghtBetweenTwoPositions(meshParticles->currentPositions[structuralSpringsHorizontal[i].firstParticleIndex],
+			meshParticles->currentPositions[structuralSpringsHorizontal[i].secondParticleIndex],
+			meshParticles->currentVelocities[structuralSpringsHorizontal[i].firstParticleIndex],
+			meshParticles->currentVelocities[structuralSpringsHorizontal[i].secondParticleIndex]);
 
-		SetAcceleration(structuralSpringsHorizontal[i].particle1, springForce);
-		SetAcceleration(structuralSpringsHorizontal[i].particle2, -springForce);
+		SetAcceleration(structuralSpringsHorizontal[i].firstParticleIndex, springForce);
+		SetAcceleration(structuralSpringsHorizontal[i].secondParticleIndex, -springForce);
 	}
 
 	for (int i = 0; i < structuralSpringsVertical.size(); i++)
 	{
-		springForce = structuralSpringsVertical[i].GetStrenghtBetweenTwoPositions(meshParticles->currentPositions[structuralSpringsVertical[i].particle1],
-			meshParticles->currentPositions[structuralSpringsVertical[i].particle2],
-			meshParticles->currentVelocities[structuralSpringsVertical[i].particle1],
-			meshParticles->currentVelocities[structuralSpringsVertical[i].particle2]);
+		springForce = structuralSpringsVertical[i].GetStrenghtBetweenTwoPositions(meshParticles->currentPositions[structuralSpringsVertical[i].firstParticleIndex],
+			meshParticles->currentPositions[structuralSpringsVertical[i].secondParticleIndex],
+			meshParticles->currentVelocities[structuralSpringsVertical[i].firstParticleIndex],
+			meshParticles->currentVelocities[structuralSpringsVertical[i].secondParticleIndex]);
 
-		SetAcceleration(structuralSpringsVertical[i].particle1, springForce);
-		SetAcceleration(structuralSpringsVertical[i].particle2, -springForce);
+		SetAcceleration(structuralSpringsVertical[i].firstParticleIndex, springForce);
+		SetAcceleration(structuralSpringsVertical[i].secondParticleIndex, -springForce);
 	}
 
 	// == BENDING ==
 	for (int i = 0; i < bendingSpringsHorizontal.size(); i++)
 	{
-		springForce = bendingSpringsHorizontal[i].GetStrenghtBetweenTwoPositions(meshParticles->currentPositions[bendingSpringsHorizontal[i].particle1],
-			meshParticles->currentPositions[bendingSpringsHorizontal[i].particle2],
-			meshParticles->currentVelocities[bendingSpringsHorizontal[i].particle1],
-			meshParticles->currentVelocities[bendingSpringsHorizontal[i].particle2]);
+		springForce = bendingSpringsHorizontal[i].GetStrenghtBetweenTwoPositions(meshParticles->currentPositions[bendingSpringsHorizontal[i].firstParticleIndex],
+			meshParticles->currentPositions[bendingSpringsHorizontal[i].secondParticleIndex],
+			meshParticles->currentVelocities[bendingSpringsHorizontal[i].firstParticleIndex],
+			meshParticles->currentVelocities[bendingSpringsHorizontal[i].secondParticleIndex]);
 
-		SetAcceleration(bendingSpringsHorizontal[i].particle1, springForce);
-		SetAcceleration(bendingSpringsHorizontal[i].particle2, -springForce);
+		SetAcceleration(bendingSpringsHorizontal[i].firstParticleIndex, springForce);
+		SetAcceleration(bendingSpringsHorizontal[i].secondParticleIndex, -springForce);
 	}
 
 	for (int i = 0; i < bendingSpringsVertical.size(); i++)
 	{
-		springForce = bendingSpringsVertical[i].GetStrenghtBetweenTwoPositions(meshParticles->currentPositions[bendingSpringsVertical[i].particle1],
-			meshParticles->currentPositions[bendingSpringsVertical[i].particle2],
-			meshParticles->currentVelocities[bendingSpringsVertical[i].particle1],
-			meshParticles->currentVelocities[bendingSpringsVertical[i].particle2]);
+		springForce = bendingSpringsVertical[i].GetStrenghtBetweenTwoPositions(meshParticles->currentPositions[bendingSpringsVertical[i].firstParticleIndex],
+			meshParticles->currentPositions[bendingSpringsVertical[i].secondParticleIndex],
+			meshParticles->currentVelocities[bendingSpringsVertical[i].firstParticleIndex],
+			meshParticles->currentVelocities[bendingSpringsVertical[i].secondParticleIndex]);
 
-		SetAcceleration(bendingSpringsVertical[i].particle1, springForce);
-		SetAcceleration(bendingSpringsVertical[i].particle2, -springForce);
+		SetAcceleration(bendingSpringsVertical[i].firstParticleIndex, springForce);
+		SetAcceleration(bendingSpringsVertical[i].secondParticleIndex, -springForce);
 	}
 
 	// == SHEAR ==
 	for (int i = 0; i < shearSpringsRight.size(); i++)
 	{
-		springForce = shearSpringsRight[i].GetStrenghtBetweenTwoPositions(meshParticles->currentPositions[shearSpringsRight[i].particle1],
-			meshParticles->currentPositions[shearSpringsRight[i].particle2],
-			meshParticles->currentVelocities[shearSpringsRight[i].particle1],
-			meshParticles->currentVelocities[shearSpringsRight[i].particle2]);
+		springForce = shearSpringsRight[i].GetStrenghtBetweenTwoPositions(meshParticles->currentPositions[shearSpringsRight[i].firstParticleIndex],
+			meshParticles->currentPositions[shearSpringsRight[i].secondParticleIndex],
+			meshParticles->currentVelocities[shearSpringsRight[i].firstParticleIndex],
+			meshParticles->currentVelocities[shearSpringsRight[i].secondParticleIndex]);
 
-		SetAcceleration(shearSpringsRight[i].particle1, springForce);
-		SetAcceleration(shearSpringsRight[i].particle2, -springForce);
+		SetAcceleration(shearSpringsRight[i].firstParticleIndex, springForce);
+		SetAcceleration(shearSpringsRight[i].secondParticleIndex, -springForce);
 	}
 
 	for (int i = 0; i < shearSpringsLeft.size(); i++)
 	{
-		springForce = shearSpringsLeft[i].GetStrenghtBetweenTwoPositions(meshParticles->currentPositions[shearSpringsLeft[i].particle1],
-			meshParticles->currentPositions[shearSpringsLeft[i].particle2],
-			meshParticles->currentVelocities[shearSpringsLeft[i].particle1],
-			meshParticles->currentVelocities[shearSpringsLeft[i].particle2]);
+		springForce = shearSpringsLeft[i].GetStrenghtBetweenTwoPositions(meshParticles->currentPositions[shearSpringsLeft[i].firstParticleIndex],
+			meshParticles->currentPositions[shearSpringsLeft[i].secondParticleIndex],
+			meshParticles->currentVelocities[shearSpringsLeft[i].firstParticleIndex],
+			meshParticles->currentVelocities[shearSpringsLeft[i].secondParticleIndex]);
 
-		SetAcceleration(shearSpringsLeft[i].particle1, springForce);
-		SetAcceleration(shearSpringsLeft[i].particle2, -springForce);
+		SetAcceleration(shearSpringsLeft[i].firstParticleIndex, springForce);
+		SetAcceleration(shearSpringsLeft[i].secondParticleIndex, -springForce);
 	}
 }
 
